@@ -16,8 +16,16 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(mainRoutes)
 
 io.on('connection', (socket) => {
+  console.log('a user has connected')
+  io.emit('join')
+
   socket.on('chat message', (msg) => {
-    io.emit('chat message', msg)
+    socket.broadcast.emit('chat message', msg)
+  })
+
+  socket.on('disconnect', () => {
+    console.log('A user has disconnected.')
+    io.emit('leave')
   })
 })
 

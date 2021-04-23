@@ -83,11 +83,26 @@
     });
 
     socket.on('chat message', function(msg) {
-      var item = document.createElement('li');
+      const item = document.createElement('li');
       item.textContent = msg;
       messages.appendChild(item);
       window.scrollTo(0, document.body.scrollHeight);
     });
+
+    socket.on('leave', function() {
+      const disconnectMessage = document.createElement('li')
+      disconnectMessage.textContent = 'A user has left the chat'
+      messages.appendChild(disconnectMessage)
+      window.scrollTo(0, document.body.scrollHeight)
+    })
+
+    socket.on('join', function() {
+      const joinMessage = document.createElement('li')
+      joinMessage.textContent = 'A new user has joined the chat'
+      messages.appendChild(joinMessage)
+      window.scrollTo(0, document.body.scrollHeight)
+    })
+
   </script>
 </body>
 
